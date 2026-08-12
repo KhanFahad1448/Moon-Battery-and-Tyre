@@ -1,0 +1,258 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Moon Battery & Tyre — "Charcoal & Ember" design system.
+ * Dark garage charcoal surfaces with a hot ember accent.
+ */
+
+@theme inline {
+  --font-display: "Bebas Neue", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ember: var(--ember);
+  --color-ember-soft: var(--ember-soft);
+  --color-steel: var(--steel);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.35rem;
+  --background: oklch(0.16 0.004 60);
+  --foreground: oklch(0.95 0.005 80);
+  --surface: oklch(0.21 0.005 60);
+  --surface-2: oklch(0.26 0.006 60);
+  --card: oklch(0.21 0.005 60);
+  --card-foreground: oklch(0.95 0.005 80);
+  --popover: oklch(0.21 0.005 60);
+  --popover-foreground: oklch(0.95 0.005 80);
+  --primary: oklch(0.65 0.181 38.5);
+  --primary-foreground: oklch(0.14 0.01 40);
+  --ember: oklch(0.65 0.181 38.5);
+  --ember-soft: oklch(0.76 0.14 52);
+  --steel: oklch(0.45 0.004 60);
+  --secondary: oklch(0.26 0.006 60);
+  --secondary-foreground: oklch(0.95 0.005 80);
+  --muted: oklch(0.26 0.006 60);
+  --muted-foreground: oklch(0.68 0.008 70);
+  --accent: oklch(0.3 0.02 45);
+  --accent-foreground: oklch(0.95 0.005 80);
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: oklch(0.97 0.005 80);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.65 0.181 38.5);
+  --chart-1: oklch(0.65 0.181 38.5);
+  --chart-2: oklch(0.76 0.14 52);
+  --chart-3: oklch(0.45 0.004 60);
+  --chart-4: oklch(0.6 0.1 30);
+  --chart-5: oklch(0.85 0.05 70);
+  --sidebar: oklch(0.19 0.004 60);
+  --sidebar-foreground: oklch(0.95 0.005 80);
+  --sidebar-primary: oklch(0.65 0.181 38.5);
+  --sidebar-primary-foreground: oklch(0.14 0.01 40);
+  --sidebar-accent: oklch(0.26 0.006 60);
+  --sidebar-accent-foreground: oklch(0.95 0.005 80);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.65 0.181 38.5);
+
+  --gradient-ember: linear-gradient(
+    135deg,
+    oklch(0.65 0.181 38.5),
+    oklch(0.78 0.15 62)
+  );
+  --gradient-charcoal: linear-gradient(
+    180deg,
+    oklch(0.16 0.004 60),
+    oklch(0.21 0.005 60)
+  );
+  --shadow-ember: 0 18px 50px -18px oklch(0.65 0.181 38.5 / 0.55);
+  --shadow-deep: 0 30px 70px -30px oklch(0 0 0 / 0.9);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    font-weight: 400;
+  }
+
+  ::selection {
+    background: var(--ember);
+    color: var(--primary-foreground);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--surface-2);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ember);
+  }
+}
+
+@utility text-gradient-ember {
+  background: var(--gradient-ember);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-ember {
+  background-image: var(--gradient-ember);
+}
+
+@utility shadow-ember {
+  box-shadow: var(--shadow-ember);
+}
+
+@utility shadow-deep {
+  box-shadow: var(--shadow-deep);
+}
+
+@utility glass-panel {
+  background: color-mix(in oklab, var(--surface) 65%, transparent);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+}
+
+@utility grid-noise {
+  background-image:
+    linear-gradient(oklch(1 0 0 / 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(1 0 0 / 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility ember-underline {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 2px;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: right;
+    background: var(--gradient-ember);
+    transition: transform 0.4s var(--ease-out-quint);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@utility hover-lift {
+  transition:
+    transform 0.45s var(--ease-out-quint),
+    box-shadow 0.45s var(--ease-out-quint),
+    border-color 0.45s var(--ease-out-quint);
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-deep);
+    border-color: color-mix(in oklab, var(--ember) 45%, transparent);
+  }
+}
+
+@utility marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+@utility spin-slow {
+  animation: spin 18s linear infinite;
+}
+
+@utility ember-pulse {
+  animation: ember-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ember-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.08);
+  }
+}
