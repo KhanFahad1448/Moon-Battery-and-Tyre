@@ -46,7 +46,7 @@ export default function ProductDetail({ product, related }) {
             className="relative overflow-hidden rounded-lg border border-border bg-background"
           >
             <img
-              src={isTyre ? images.heroTyre : images.heroBattery}
+              src={product.images?.[0]?.url || (isTyre ? images.heroTyre : images.heroBattery)}
               alt={`${product.brand} ${product.name}`}
               className="aspect-square w-full object-cover transition-transform duration-[1.4s] hover:scale-110"
             />

@@ -21,7 +21,7 @@ export default function ProductCard({ product }) {
         className="relative block aspect-[4/3] overflow-hidden bg-background"
       >
         <img
-          src={isTyre ? images.heroTyre : images.heroBattery}
+          src={product.images?.[0]?.url || (isTyre ? images.heroTyre : images.heroBattery)}
           alt={`${product.brand} ${product.name}`}
           loading="lazy"
           className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
