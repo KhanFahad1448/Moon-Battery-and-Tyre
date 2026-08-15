@@ -66,6 +66,7 @@ function ProductsSection() {
   const qc = useQueryClient();
   const [kind, setKind] = useState("tyre");
   const [uploading, setUploading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const [imageData, setImageData] = useState(null);
 
@@ -95,10 +96,12 @@ function ProductsSection() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (submitting) return; // guards against double-clicks / double-submits
     const data = new FormData(e.currentTarget);
     const brand = data.get("brand");
     const name = data.get("name");
     const spec = data.get("spec");
+    setSubmitting(true);
     try {
       await api.post("/products", {
         kind,
@@ -123,9 +126,11 @@ function ProductsSection() {
       e.currentTarget.reset();
       setImagePreview(null);
       setImageData(null);
-      qc.invalidateQueries({ queryKey: ["admin-products"] });
     } catch (err) {
       toast.error(err.response?.data?.message || "Couldn't add product");
+    } finally {
+      setSubmitting(false);
+      qc.invalidateQueries({ queryKey: ["admin-products"] });
     }
   };
 
@@ -196,8 +201,8 @@ function ProductsSection() {
           {imagePreview && <img src={imagePreview} alt="Preview" className="mt-3 h-32 w-32 rounded-sm object-cover" />}
         </div>
 
-        <button type="submit" disabled={uploading} className={btn}>
-          Add {kind === "tyre" ? "tyre" : "battery"}
+        <button type="submit" disabled={uploading || submitting} className={btn}>
+          {submitting ? "Adding..." : `Add ${kind === "tyre" ? "tyre" : "battery"}`}
         </button>
       </form>
 
