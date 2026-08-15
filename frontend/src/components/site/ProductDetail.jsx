@@ -66,22 +66,24 @@ export default function ProductDetail({ product, related }) {
             <p className="mt-6 text-[11px] uppercase tracking-[0.3em] text-ember">{product.brand}</p>
             <h1 className="mt-2 text-5xl leading-none md:text-6xl">{product.name}</h1>
             <p className="mt-2 text-lg text-muted-foreground">
-              {isTyre ? product.size : `${product.capacity} · ${product.cca} CCA`}
+              {isTyre ? product.size : `${product.capacity}${product.cca ? ` · ${product.cca} CCA` : ""}`}
             </p>
 
-            <div className="mt-4 flex items-center gap-2 text-sm">
-              <span className="flex gap-0.5">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={14}
-                    className={i < Math.round(product.rating) ? "fill-ember text-ember" : "text-steel"}
-                  />
-                ))}
-              </span>
-              <span className="font-semibold">{product.rating}</span>
-              <span className="text-muted-foreground">({product.reviews} verified reviews)</span>
-            </div>
+            {product.rating ? (
+              <div className="mt-4 flex items-center gap-2 text-sm">
+                <span className="flex gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      size={14}
+                      className={i < Math.round(product.rating) ? "fill-ember text-ember" : "text-steel"}
+                    />
+                  ))}
+                </span>
+                <span className="font-semibold">{product.rating}</span>
+                <span className="text-muted-foreground">({product.reviews || 0} verified reviews)</span>
+              </div>
+            ) : null}
 
             <div className="mt-7 flex items-end gap-4">
               <p className="font-display text-5xl text-gradient-ember">{inr(product.price)}</p>
@@ -198,7 +200,7 @@ export default function ProductDetail({ product, related }) {
 
           {tab === "specifications" ? (
             <dl className="grid max-w-3xl gap-px overflow-hidden rounded-lg border border-border bg-border sm:grid-cols-2">
-              {specs.map(([k, v]) => (
+              {specs.filter(([, v]) => v !== undefined && v !== null && v !== "").map(([k, v]) => (
                 <div key={k} className="flex justify-between bg-surface px-5 py-4">
                   <dt className="text-sm text-muted-foreground">{k}</dt>
                   <dd className="text-sm font-semibold">{v}</dd>

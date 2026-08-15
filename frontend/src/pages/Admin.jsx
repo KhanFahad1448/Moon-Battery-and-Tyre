@@ -113,6 +113,10 @@ function ProductsSection() {
         description: data.get("description"),
         size: kind === "tyre" ? spec : undefined,
         capacity: kind === "battery" ? spec : undefined,
+        season: kind === "tyre" ? data.get("season") || undefined : undefined,
+        cca: kind === "battery" ? data.get("cca") || undefined : undefined,
+        rating: Number(data.get("rating")) || undefined,
+        reviews: Number(data.get("reviews")) || undefined,
         images: imageData ? [imageData] : [],
       });
       toast.success("Product added");
@@ -163,10 +167,19 @@ function ProductsSection() {
           <input required name="brand" placeholder="Brand" className={field} />
         </div>
         <input required name="spec" placeholder={kind === "tyre" ? "Size (e.g. 205/55 R16)" : "Capacity (e.g. 65Ah)"} className={field} />
+        {kind === "tyre" ? (
+          <input name="season" placeholder="Season (e.g. All-season, Summer, Winter)" className={field} />
+        ) : (
+          <input name="cca" placeholder="CCA (Cold Cranking Amps, e.g. 550)" className={field} />
+        )}
         <div className="grid grid-cols-3 gap-4">
           <input required name="price" type="number" placeholder="Price ₹" className={field} />
           <input name="mrp" type="number" placeholder="MRP ₹ (optional)" className={field} />
           <input name="stock" type="number" placeholder="Stock" className={field} />
+        </div>
+        <div className="grid grid-cols-2 gap-4">
+          <input name="rating" type="number" step="0.1" min="0" max="5" placeholder="Rating (e.g. 4.5, optional)" className={field} />
+          <input name="reviews" type="number" min="0" placeholder="Number of reviews (optional)" className={field} />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <input name="type" placeholder={kind === "tyre" ? "Type (e.g. SUV, Sedan)" : "Type (e.g. Car, Inverter)"} className={field} />

@@ -48,10 +48,14 @@ export default function ProductCard({ product }) {
         </p>
 
         <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Star size={13} className="fill-ember text-ember" />
-          <span className="font-semibold text-foreground">{product.rating}</span>
-          <span>({product.reviews})</span>
-          <span className="mx-1 text-steel">|</span>
+          {product.rating ? (
+            <>
+              <Star size={13} className="fill-ember text-ember" />
+              <span className="font-semibold text-foreground">{product.rating}</span>
+              <span>({product.reviews || 0})</span>
+              <span className="mx-1 text-steel">|</span>
+            </>
+          ) : null}
           <span>{product.warranty} warranty</span>
         </div>
 
