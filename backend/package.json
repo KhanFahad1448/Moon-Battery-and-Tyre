@@ -16,7 +16,8 @@
     "mongoose": "^8.9.5",
     "moon-battery-tyre": "file:..",
     "morgan": "^1.10.0",
-    "multer": "^2.0.0"
+    "multer": "^2.0.0",
+"razorpay": "^2.9.6"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

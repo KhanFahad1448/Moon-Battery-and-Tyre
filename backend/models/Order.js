@@ -23,6 +23,8 @@ const orderSchema = new mongoose.Schema(
     fitting: Number,
     total: Number,
     method: String,
+    razorpayOrderId: String,
+    razorpayPaymentId: String,
     name: String,
     phone: String,
     email: String,
