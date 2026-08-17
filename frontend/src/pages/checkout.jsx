@@ -18,6 +18,17 @@ const methods = [
   { id: "cod", label: "Pay on Delivery", note: "Cash or card at fitment" },
 ];
 
+function loadRazorpayScript() {
+  return new Promise((resolve) => {
+    if (window.Razorpay) return resolve(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
+}
+
 function CheckoutPage() {
   useMeta({ title: "Checkout — Moon Battery and Tyre", description: "Complete your tyre or battery order. UPI, cards, net banking and no-cost EMI supported." });
 
@@ -41,25 +52,89 @@ function CheckoutPage() {
 
   const submit = async (e) => {
     e.preventDefault();
+    if (loading) return;
     const data = new FormData(e.currentTarget);
+    const delivery = {
+      name: data.get("name"),
+      phone: data.get("phone"),
+      email: data.get("email"),
+      address: data.get("address"),
+      city: data.get("city"),
+      state: data.get("state"),
+      pin: data.get("pin"),
+    };
+
     setLoading(true);
+
+    if (method === "cod") {
+      try {
+        const res = await api.post("/orders", { ...delivery, method });
+        clearCart();
+        setPlaced(res.data.orderId);
+        toast.success("Order placed — our counter will confirm shortly");
+      } catch (err) {
+        toast.error(err.response?.data?.message || "Couldn't place your order. Try again.");
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
     try {
-      const res = await api.post("/orders", {
-        name: data.get("name"),
-        phone: data.get("phone"),
-        email: data.get("email"),
-        address: data.get("address"),
-        city: data.get("city"),
-        state: data.get("state"),
-        pin: data.get("pin"),
-        method,
+      const scriptLoaded = await loadRazorpayScript();
+      if (!scriptLoaded) {
+        toast.error("Couldn't load the payment gateway. Check your connection and try again.");
+        setLoading(false);
+        return;
+      }
+
+      const { data: order } = await api.post("/payments/create-order");
+
+      const razorpay = new window.Razorpay({
+        key: order.keyId,
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.razorpayOrderId,
+        name: "Moon Battery and Tyre",
+        description: "Order payment",
+        prefill: {
+          name: delivery.name,
+          email: delivery.email,
+          contact: delivery.phone,
+        },
+        theme: { color: "#ff6a1a" },
+        handler: async (response) => {
+          try {
+            const res = await api.post("/payments/verify", {
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+              ...delivery,
+            });
+            clearCart();
+            setPlaced(res.data.orderId);
+            toast.success("Payment successful — order confirmed");
+          } catch (err) {
+            toast.error(err.response?.data?.message || "Payment succeeded but we couldn't confirm your order. Contact us.");
+          } finally {
+            setLoading(false);
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            setLoading(false);
+          },
+        },
       });
-      clearCart();
-      setPlaced(res.data.orderId);
-      toast.success("Order placed — our counter will confirm shortly");
+
+      razorpay.on("payment.failed", () => {
+        toast.error("Payment failed. You haven't been charged — try again.");
+        setLoading(false);
+      });
+
+      razorpay.open();
     } catch (err) {
-      toast.error(err.response?.data?.message || "Couldn't place your order. Try again.");
-    } finally {
+      toast.error(err.response?.data?.message || "Couldn't start payment. Try again.");
       setLoading(false);
     }
   };
@@ -77,7 +152,7 @@ function CheckoutPage() {
 
   return (
     <>
-      <PageHeader eyebrow="Step 2 of 2" title="CHECKOUT" subtitle="Payment gateway integration is pending — orders are recorded and confirmed by our counter." />
+      <PageHeader eyebrow="Step 2 of 2" title="CHECKOUT" subtitle="Secure payment powered by Razorpay — UPI, cards, net banking and EMI, or pay on delivery." />
       <section className="container mx-auto grid gap-10 px-6 py-20 lg:grid-cols-[1.4fr_1fr]">
         <Reveal>
           <form onSubmit={submit} className="space-y-5 rounded-lg border border-border bg-surface p-8">
@@ -107,7 +182,7 @@ function CheckoutPage() {
               ))}
             </div>
             <button type="submit" disabled={cart.length === 0 || loading} className={btn}>
-              {loading ? "Placing order..." : `Place order · ${inr(total)}`}
+              {loading ? "Processing..." : `Place order · ${inr(total)}`}
             </button>
           </form>
         </Reveal>
