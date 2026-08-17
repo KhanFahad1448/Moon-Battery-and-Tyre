@@ -68,3 +68,18 @@ export const updateOrderStatus = asyncHandler(async (req, res) => {
   }
   res.json(order);
 });
+
+
+export const updatePaymentStatus = asyncHandler(async (req, res) => {
+  const { paymentStatus } = req.body;
+  const allowed = ["Paid", "Pending", "Failed"];
+  if (!allowed.includes(paymentStatus)) {
+    throw new AppError(`Payment status must be one of: ${allowed.join(", ")}`, 400);
+  }
+
+  const order = await Order.findByIdAndUpdate(req.params.id, { paymentStatus }, { new: true });
+  if (!order) {
+    throw new AppError("Order not found", 404);
+  }
+  res.json(order);
+});

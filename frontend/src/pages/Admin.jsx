@@ -208,7 +208,7 @@ function ProductsSection() {
 
       <div className="rounded-lg border border-border bg-surface p-8">
         <h2 className="text-2xl leading-none">Catalogue ({products?.length ?? 0})</h2>
-        <ul className="mt-6 max-h-[600px] space-y-3 overflow-y-auto">
+        <ul className="mt-6 max-h-150 space-y-3 overflow-y-auto">
           {products?.map((p) => (
             <li key={p._id} className="flex items-center justify-between gap-4 border-b border-border pb-3">
               <div className="flex items-center gap-3">
@@ -343,7 +343,7 @@ function ReviewsSection() {
       <div className="rounded-lg border border-border bg-surface p-8">
         <h2 className="text-2xl leading-none">Live reviews ({testimonials?.length ?? 0})</h2>
         <p className="mt-1 text-xs text-muted-foreground">These show up on your Testimonials page and home page right now.</p>
-        <ul className="mt-6 max-h-[600px] space-y-3 overflow-y-auto">
+        <ul className="mt-6 max-h-150 space-y-3 overflow-y-auto">
           {testimonials?.map((t) => (
             <li key={t._id} className="flex items-start justify-between gap-4 border-b border-border pb-3">
               <div>
@@ -360,8 +360,20 @@ function ReviewsSection() {
     </div>
   );
 }
-
 const orderStatuses = ["Placed", "Confirmed", "Fitted", "Completed", "Cancelled"];
+
+function PaymentBadge({ status }) {
+  const styles = {
+    Paid: "bg-emerald-500/15 text-emerald-500 border-emerald-500/30",
+    Pending: "bg-amber-500/15 text-amber-500 border-amber-500/30",
+    Failed: "bg-destructive/15 text-destructive border-destructive/30",
+  };
+  return (
+    <span className={"rounded-sm border px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest " + (styles[status] || styles.Pending)}>
+      {status === "Paid" ? "Paid" : status === "Failed" ? "Payment failed" : "Payment pending"}
+    </span>
+  );
+}
 
 function OrdersSection() {
   const qc = useQueryClient();
@@ -380,6 +392,16 @@ function OrdersSection() {
     }
   };
 
+  const markPaymentReceived = async (id) => {
+    try {
+      await api.put(`/admin/orders/${id}/payment-status`, { paymentStatus: "Paid" });
+      toast.success("Marked as paid");
+      qc.invalidateQueries({ queryKey: ["admin-orders"] });
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Couldn't update payment status");
+    }
+  };
+
   if (isLoading) return <p className="text-muted-foreground">Loading orders...</p>;
 
   return (
@@ -395,12 +417,16 @@ function OrdersSection() {
                   {o.user?.name} ({o.user?.email}) · {new Date(o.createdAt).toLocaleDateString("en-IN")}
                 </p>
               </div>
-              <p className="text-ember">{inr(o.total)}</p>
+              <div className="flex items-center gap-2">
+                <PaymentBadge status={o.paymentStatus || "Pending"} />
+                <p className="text-ember">{inr(o.total)}</p>
+              </div>
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              {o.items.length} items · {o.method} · {o.address}, {o.city}, {o.state} {o.pin}
+              {o.items.length} items · Paid via <span className="uppercase">{o.method}</span> · {o.address}, {o.city}, {o.state} {o.pin}
+              {o.razorpayPaymentId ? <> · Razorpay ID: {o.razorpayPaymentId}</> : null}
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-3 flex flex-wrap items-center gap-2">
               {orderStatuses.map((s) => (
                 <button
                   key={s}
@@ -410,6 +436,14 @@ function OrdersSection() {
                   {s}
                 </button>
               ))}
+              {o.paymentStatus !== "Paid" && (
+                <button
+                  onClick={() => markPaymentReceived(o._id)}
+                  className="rounded-sm border border-emerald-500/40 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-emerald-500 hover:bg-emerald-500/10"
+                >
+                  Mark payment received
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -418,6 +452,8 @@ function OrdersSection() {
     </div>
   );
 }
+
+/* ---------------- Shell ---------------- */
 
 function AdminPage() {
   useMeta({ title: "Admin — Moon Battery and Tyre" });

@@ -18,7 +18,7 @@ export default function ProductCard({ product }) {
     >
       <Link
         to={isTyre ? `/tyres/${product.slug}` : `/batteries/${product.slug}`}
-        className="relative block aspect-[4/3] overflow-hidden bg-background"
+        className="relative block aspect-4/3 overflow-hidden bg-background"
       >
         <img
           src={product.images?.[0]?.url || (isTyre ? images.heroTyre : images.heroBattery)}

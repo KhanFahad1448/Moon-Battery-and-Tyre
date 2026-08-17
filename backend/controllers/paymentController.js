@@ -69,6 +69,11 @@ export const verifyPayment = asyncHandler(async (req, res) => {
     throw new AppError("Payment verification failed", 400);
   }
 
+  // Fetch the real payment details from Razorpay — tells us exactly which
+  // method the customer actually used (upi, card, netbanking, wallet, emi),
+  // rather than us guessing from what they picked in our own radio buttons.
+  const payment = await razorpay.payments.fetch(razorpay_payment_id);
+
   const items = req.user.cart;
   if (!items || items.length === 0) {
     throw new AppError("Your cart is empty", 400);
@@ -89,7 +94,8 @@ export const verifyPayment = asyncHandler(async (req, res) => {
     gst,
     fitting,
     total,
-    method: "online",
+    method: payment.method || "online",
+    paymentStatus: "Paid",
     razorpayOrderId: razorpay_order_id,
     razorpayPaymentId: razorpay_payment_id,
     name,
