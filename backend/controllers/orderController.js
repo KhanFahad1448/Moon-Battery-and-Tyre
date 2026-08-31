@@ -1,6 +1,7 @@
 import Order from "../models/Order.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { AppError } from "../utils/AppError.js";
+import { sendOrderConfirmationEmail } from "../utils/sendEmail.js";
 
 export const createOrder = asyncHandler(async (req, res) => {
   const { name, phone, email, address, city, state, pin, method } = req.body;
@@ -43,6 +44,7 @@ export const createOrder = asyncHandler(async (req, res) => {
   await req.user.save();
 
   res.status(201).json(order);
+  await sendOrderConfirmationEmail(order);
 });
 
 export const getMyOrders = asyncHandler(async (req, res) => {

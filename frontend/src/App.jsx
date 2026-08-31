@@ -4,6 +4,7 @@ import { StoreProvider } from "@/lib/store";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
 import ErrorBoundary from "@/components/site/ErrorBoundary";
+import WhatsAppButton from "@/components/site/WhatsAppButton";
 import { Toaster } from "@/components/ui/sonner";
 
 import Home from "@/pages/Home";
@@ -106,6 +107,7 @@ function App() {
           </main>
           <Footer />
         </div>
+        <WhatsAppButton />
         <Toaster />
       </StoreProvider>
     </ErrorBoundary>

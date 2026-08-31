@@ -17,7 +17,8 @@
     "moon-battery-tyre": "file:..",
     "morgan": "^1.10.0",
     "multer": "^2.0.0",
-"razorpay": "^2.9.6"
+    "razorpay": "^2.9.6",
+    "resend": "^6.20.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

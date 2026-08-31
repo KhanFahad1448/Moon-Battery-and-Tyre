@@ -215,6 +215,7 @@ export default function Header() {
               ? [{ label: "Admin", links: [{ to: "/admin", label: "Admin Dashboard" }] }]
               : []
             )
+              .concat([{ label: "Account", links: [{ to: user ? "/account" : "/login", label: user ? "My Account" : "Sign In" }] }])
               .concat([...menu, { label: "More", links: flat }])
               .map((group, gi) => (
               <motion.div

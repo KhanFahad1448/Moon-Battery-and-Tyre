@@ -3,6 +3,7 @@ import razorpay from "../config/razorpay.js";
 import Order from "../models/Order.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { AppError } from "../utils/AppError.js";
+import { sendOrderConfirmationEmail } from "../utils/sendEmail.js";
 
 // POST /api/payments/create-order  (protected)
 // Computes the total from the user's own saved cart (never trusting the
@@ -112,4 +113,5 @@ export const verifyPayment = asyncHandler(async (req, res) => {
   await req.user.save();
 
   res.status(201).json(order);
+   await sendOrderConfirmationEmail(order);
 });
