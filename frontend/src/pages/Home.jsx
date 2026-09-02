@@ -68,12 +68,11 @@ function Home() {
 
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "45%"]);
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  target: heroRef,
+  offset: ["start start", "end start"],
+});
+const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"]);
+const textY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
 
   return (
     <>
@@ -92,9 +91,9 @@ function Home() {
         </motion.div>
 
         <motion.div
-          style={{ y: textY, opacity: fade }}
-          className="container mx-auto px-6 pb-24 pt-44 md:pt-52"
-        >
+           style={{ y: textY }}
+           className="container mx-auto px-6 pb-24 pt-44 md:pt-52"
+         >
           <motion.p
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
