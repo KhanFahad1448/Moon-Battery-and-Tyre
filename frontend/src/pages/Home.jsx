@@ -245,7 +245,7 @@ const textY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
               See all offers
             </Link>
           </Reveal>
-          <Stagger className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <Stagger className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {featured.map((p) => (
               <StaggerItem key={`${p.kind}-${p.slug}`}>
                 <ProductCard product={p} />

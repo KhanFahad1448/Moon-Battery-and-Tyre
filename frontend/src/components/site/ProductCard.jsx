@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
           loading="lazy"
           className="h-full w-full object-cover opacity-80 transition-all duration-700 group-hover:scale-110 group-hover:opacity-100"
         />
-        <span className="absolute left-3 top-3 rounded-sm bg-gradient-ember px-2 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
+        <span className="absolute left-2 top-2 rounded-sm bg-gradient-ember px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-widest text-primary-foreground sm:left-3 sm:top-3 sm:px-2 sm:py-1 sm:text-[10px]">
           {off}% off
         </span>
       </Link>
@@ -35,19 +35,20 @@ export default function ProductCard({ product }) {
         type="button"
         onClick={() => toggleWishlist(product)}
         aria-label="Save to wishlist"
-        className="absolute right-3 top-3 rounded-full border border-border bg-background/70 p-2 backdrop-blur transition-colors hover:border-ember hover:text-ember"
+        className="absolute right-2 top-2 rounded-full border border-border bg-background/70 p-1.5 backdrop-blur transition-colors hover:border-ember hover:text-ember sm:right-3 sm:top-3 sm:p-2"
       >
-        <Heart size={15} className={saved ? "fill-ember text-ember" : ""} />
+        <Heart size={13} className={"sm:hidden " + (saved ? "fill-ember text-ember" : "")} />
+        <Heart size={15} className={"hidden sm:block " + (saved ? "fill-ember text-ember" : "")} />
       </button>
 
-      <div className="flex flex-1 flex-col p-5">
-        <p className="text-[11px] uppercase tracking-[0.22em] text-ember">{product.brand}</p>
-        <h3 className="mt-1 text-2xl leading-none">{product.name}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">
+      <div className="flex flex-1 flex-col p-3 sm:p-5">
+        <p className="text-[9px] uppercase tracking-[0.18em] text-ember sm:text-[11px] sm:tracking-[0.22em]">{product.brand}</p>
+        <h3 className="mt-1 text-base leading-tight sm:text-2xl sm:leading-none">{product.name}</h3>
+        <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
           {isTyre ? product.size : `${product.capacity} · ${product.cca} CCA`}
         </p>
 
-        <div className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+        <div className="mt-2 hidden items-center gap-1.5 text-xs text-muted-foreground sm:mt-3 sm:flex">
           {product.rating ? (
             <>
               <Star size={13} className="fill-ember text-ember" />
@@ -59,15 +60,15 @@ export default function ProductCard({ product }) {
           <span>{product.warranty} warranty</span>
         </div>
 
-        <div className="mt-auto flex items-end justify-between gap-3 pt-5">
+        <div className="mt-auto flex items-end justify-between gap-2 pt-3 sm:gap-3 sm:pt-5">
           <div>
-            <p className="text-xs text-muted-foreground line-through">{inr(product.mrp)}</p>
-            <p className="text-2xl font-semibold tracking-tight">{inr(product.price)}</p>
+            <p className="text-[10px] text-muted-foreground line-through sm:text-xs">{inr(product.mrp)}</p>
+            <p className="text-base font-semibold tracking-tight sm:text-2xl">{inr(product.price)}</p>
           </div>
           <button
             type="button"
             onClick={() => addToCart(product)}
-            className="rounded-sm border border-ember/50 px-4 py-2 text-xs font-bold uppercase tracking-widest text-ember transition-all duration-300 hover:bg-gradient-ember hover:text-primary-foreground"
+            className="rounded-sm border border-ember/50 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-widest text-ember transition-all duration-300 hover:bg-gradient-ember hover:text-primary-foreground sm:px-4 sm:py-2 sm:text-xs"
           >
             Add
           </button>
