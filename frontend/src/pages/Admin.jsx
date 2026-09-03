@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import {
   BatteryCharging,
   Calendar,
+  Image,
   LayoutDashboard,
   MessageSquareText,
   Package,
@@ -32,6 +33,7 @@ function slugify(str) {
 const sections = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "products", label: "Products", icon: Package },
+  { id: "gallery", label: "Gallery", icon: Image },
   { id: "bookings", label: "Bookings", icon: Calendar },
   { id: "reviews", label: "Reviews", icon: MessageSquareText },
   { id: "orders", label: "Orders", icon: ShoppingBag },
@@ -224,6 +226,92 @@ function ProductsSection() {
             </li>
           ))}
         </ul>
+      </div>
+    </div>
+  );
+}
+
+function GallerySection() {
+  const qc = useQueryClient();
+  const [uploading, setUploading] = useState(false);
+  const [caption, setCaption] = useState("");
+
+  const { data: images } = useQuery({
+    queryKey: ["admin-gallery"],
+    queryFn: async () => (await api.get("/gallery")).data,
+  });
+
+  const handleUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append("image", file);
+      const uploadRes = await api.post("/upload", formData);
+      await api.post("/gallery", {
+        url: uploadRes.data.url,
+        publicId: uploadRes.data.publicId,
+        caption: caption || undefined,
+      });
+      toast.success("Image added to gallery");
+      setCaption("");
+      qc.invalidateQueries({ queryKey: ["admin-gallery"] });
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Couldn't add image");
+    } finally {
+      setUploading(false);
+      e.target.value = "";
+    }
+  };
+
+  const remove = async (id) => {
+    if (!confirm("Remove this image?")) return;
+    try {
+      await api.delete(`/gallery/${id}`);
+      toast.success("Image removed");
+      qc.invalidateQueries({ queryKey: ["admin-gallery"] });
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Couldn't remove image");
+    }
+  };
+
+  return (
+    <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
+      <div className="space-y-4 rounded-lg border border-border bg-surface p-8">
+        <h2 className="text-2xl leading-none">Add to gallery</h2>
+        <input
+          value={caption}
+          onChange={(e) => setCaption(e.target.value)}
+          placeholder="Caption (optional)"
+          className={field}
+        />
+        <label className="flex cursor-pointer items-center gap-3 rounded-sm border border-dashed border-border px-4 py-3 text-sm text-muted-foreground hover:border-ember">
+          <Upload size={16} />
+          {uploading ? "Uploading..." : "Upload gallery image"}
+          <input type="file" accept="image/*" onChange={handleUpload} disabled={uploading} className="hidden" />
+        </label>
+      </div>
+
+      <div className="rounded-lg border border-border bg-surface p-8">
+        <h2 className="text-2xl leading-none">Gallery ({images?.length ?? 0})</h2>
+        <div className="mt-6 grid max-h-150 grid-cols-2 gap-3 overflow-y-auto sm:grid-cols-3">
+          {images?.map((img) => (
+            <div key={img._id} className="group relative overflow-hidden rounded-sm border border-border">
+              <img src={img.url} alt={img.caption || "Gallery image"} className="h-28 w-full object-cover" />
+              <button
+                onClick={() => remove(img._id)}
+                className="absolute right-1.5 top-1.5 rounded-sm bg-background/80 p-1.5 text-muted-foreground opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100"
+              >
+                <Trash2 size={14} />
+              </button>
+              {img.caption && (
+                <p className="truncate bg-background/80 px-2 py-1 text-[10px] text-muted-foreground">{img.caption}</p>
+              )}
+            </div>
+          ))}
+        </div>
+        {images?.length === 0 && <p className="text-sm text-muted-foreground">No images yet.</p>}
       </div>
     </div>
   );
@@ -479,7 +567,7 @@ function AdminPage() {
     );
   }
 
-  const Active = { overview: OverviewSection, products: ProductsSection, bookings: BookingsSection, reviews: ReviewsSection, orders: OrdersSection }[section];
+  const Active = { overview: OverviewSection, products: ProductsSection, gallery: GallerySection, bookings: BookingsSection, reviews: ReviewsSection, orders: OrdersSection }[section];
 
   return (
     <>
