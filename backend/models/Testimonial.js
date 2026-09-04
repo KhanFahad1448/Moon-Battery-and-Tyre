@@ -7,6 +7,8 @@ const testimonialSchema = new mongoose.Schema(
     car: String,
     quote: String,
     rating: { type: Number, min: 1, max: 5 },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    approved: { type: Boolean, default: false },
   },
   { timestamps: true }
 );

@@ -1,7 +1,7 @@
 import Booking from "../models/Booking.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { AppError } from "../utils/AppError.js";
-import { sendBookingConfirmationEmail } from "../utils/sendEmail.js";
+import { sendBookingConfirmationEmail, sendAdminBookingNotification } from "../utils/sendEmail.js";
 
 // POST /api/bookings  (protected — tied to the logged-in customer's account)
 export const createBooking = asyncHandler(async (req, res) => {
@@ -12,6 +12,7 @@ export const createBooking = asyncHandler(async (req, res) => {
   const booking = await Booking.create({ ...req.body, user: req.user._id });
   res.status(201).json(booking);
   await sendBookingConfirmationEmail(booking, req.user.email);
+  await sendAdminBookingNotification(booking);
 });
 
 // GET /api/bookings/mine  (protected) — the logged-in customer's own bookings

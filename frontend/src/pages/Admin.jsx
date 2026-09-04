@@ -380,6 +380,11 @@ function ReviewsSection() {
     queryFn: async () => (await api.get("/testimonials")).data,
   });
 
+  const { data: pending } = useQuery({
+    queryKey: ["admin-pending-reviews"],
+    queryFn: async () => (await api.get("/admin/testimonials/pending")).data,
+  });
+
   const submit = async (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -407,6 +412,17 @@ function ReviewsSection() {
       qc.invalidateQueries({ queryKey: ["admin-testimonials"] });
     } catch (err) {
       toast.error(err.response?.data?.message || "Couldn't remove review");
+    }
+  };
+
+  const approve = async (id) => {
+    try {
+      await api.put(`/admin/testimonials/${id}/approve`);
+      toast.success("Review approved and published");
+      qc.invalidateQueries({ queryKey: ["admin-pending-reviews"] });
+      qc.invalidateQueries({ queryKey: ["admin-testimonials"] });
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Couldn't approve review");
     }
   };
 
@@ -444,6 +460,25 @@ function ReviewsSection() {
             </li>
           ))}
         </ul>
+
+        {pending?.length > 0 && (
+          <div className="mt-8 border-t border-border pt-6">
+            <h3 className="text-lg leading-none text-ember">Pending approval ({pending.length})</h3>
+            <ul className="mt-4 space-y-3">
+              {pending.map((t) => (
+                <li key={t._id} className="flex items-start justify-between gap-4 rounded-sm border border-ember/30 bg-ember/5 p-4">
+                  <div>
+                    <p className="text-sm font-semibold">{t.name} · {t.rating}★</p>
+                    <p className="text-xs text-muted-foreground">"{t.quote}"</p>
+                  </div>
+                  <button onClick={() => approve(t._id)} className="shrink-0 rounded-sm bg-gradient-ember px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
+                    Approve
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
