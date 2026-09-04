@@ -1,8 +1,9 @@
 import heroTyre from "@/assets/hero-tyre.jpg";
 import heroBattery from "@/assets/hero-battery.jpg";
 import workshop from "@/assets/workshop.jpg";
+import showroomInterior from "@/assets/showroom-interior.jpg";
 
-export const images = { heroTyre, heroBattery, workshop };
+export const images = { heroTyre, heroBattery, workshop, showroomInterior };
 
 export const inr = (value) =>
   new Intl.NumberFormat("en-IN", {

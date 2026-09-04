@@ -76,104 +76,102 @@ const textY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
 
   return (
     <>
-      {/* Hero */}
-      <section ref={heroRef} className="relative min-h-[92vh] overflow-hidden">
-        <motion.div style={{ y: imgY }} className="absolute inset-0 -z-10">
-          <img
-            src={images.heroTyre}
-            alt="Premium performance tyre lit by ember orange light"
-            width={1600}
-            height={1104}
-            className="h-[115%] w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/25" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/70" />
-        </motion.div>
+{/* Hero */}
+<section ref={heroRef} className="relative min-h-[92vh] overflow-hidden">
+  <img
+    src={images.showroomInterior}
+    alt="Moon Battery and Tyre showroom interior"
+    className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-[2px]"
+  />
+  <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
+  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
 
-        <motion.div
-           style={{ y: textY }}
-           className="container mx-auto px-6 pb-24 pt-44 md:pt-52"
-         >
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.4em] text-ember"
-          >
-            <span className="h-px w-12 bg-gradient-ember" />
-            Est. 1999 · Two cities
-          </motion.p>
+  <motion.div
+     style={{ y: textY }}
+     className="container relative mx-auto px-6 pb-24 pt-44 md:pt-52"
+   >
+    <motion.p
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.7 }}
+      className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.4em] text-ember"
+    >
+      <span className="h-px w-12 bg-gradient-ember" />
+      Est. 1999 · Two cities
+    </motion.p>
 
-          <h1 className="max-w-4xl text-6xl leading-[0.88] sm:text-7xl md:text-8xl lg:text-9xl">
-            {"GRIP THE".split(" ").map((word, i) => (
-              <motion.span
-                key={word}
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-                className="mr-4 inline-block"
-              >
-                {word}
-              </motion.span>
-            ))}
-            <motion.span
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="block text-gradient-ember"
-            >
-              ROAD HARDER
-            </motion.span>
-          </h1>
+    <h1 className="max-w-4xl text-6xl leading-[0.88] sm:text-7xl md:text-8xl lg:text-9xl">
+      {"GRIP THE".split(" ").map((word, i) => (
+        <motion.span
+          key={word}
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="mr-4 inline-block"
+        >
+          {word}
+        </motion.span>
+      ))}
+      <motion.span
+        initial={{ opacity: 0, y: 60 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        className="block text-gradient-ember"
+      >
+        ROAD HARDER
+      </motion.span>
+    </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 26 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
-          >
-            Premium tyres and batteries, fitted by people who actually torque to spec.
-            Free fitting, free rotation for life, and a printed report with every car.
-          </motion.p>
+    <motion.p
+      initial={{ opacity: 0, y: 26 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.45 }}
+      className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground"
+    >
+      Premium tyres and batteries, fitted by people who actually torque to spec.
+      Free fitting, free rotation for life, and a printed report with every car.
+    </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 26 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.58 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <Link
-              to="/tyres"
-              className="group inline-flex items-center gap-3 rounded-sm bg-gradient-ember px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-ember transition-transform duration-300 hover:scale-[1.04]"
-            >
-              Shop tyres
-              <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1.5" />
-            </Link>
-            <Link
-              to="/batteries"
-              className="inline-flex items-center gap-3 rounded-sm border border-border px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 hover:border-ember hover:text-ember"
-            >
-              <BatteryCharging size={15} /> Shop batteries
-            </Link>
-          </motion.div>
+    <motion.div
+      initial={{ opacity: 0, y: 26 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.58 }}
+      className="mt-10 flex flex-wrap gap-4"
+    >
+      <Link
+        to="/tyres"
+        className="group inline-flex items-center gap-3 rounded-sm bg-gradient-ember px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-ember transition-transform duration-300 hover:scale-[1.04]"
+      >
+        Shop tyres
+        <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1.5" />
+      </Link>
+      <Link
+        to="/batteries"
+        className="inline-flex items-center gap-3 rounded-sm border border-border px-8 py-4 text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-300 hover:border-ember hover:text-ember"
+      >
+        <BatteryCharging size={15} /> Shop batteries
+      </Link>
+    </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.9 }}
-            className="mt-16 grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-4"
-          >
-            {stats.map((s) => (
-              <div key={s.label} className="border-l border-border pl-4">
-                <p className="font-display text-4xl text-gradient-ember">{s.value}</p>
-                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </section>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 0.9 }}
+      className="mt-16 grid max-w-2xl grid-cols-2 gap-6 sm:grid-cols-4"
+    >
+      {stats.map((s) => (
+        <div key={s.label} className="border-l border-border pl-4">
+          <p className="font-display text-4xl text-gradient-ember">{s.value}</p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            {s.label}
+          </p>
+        </div>
+      ))}
+    </motion.div>
+  </motion.div>
+</section>
+
+
 
       {/* Brand marquee */}
       <section className="overflow-hidden border-y border-border bg-surface/40 py-6">
