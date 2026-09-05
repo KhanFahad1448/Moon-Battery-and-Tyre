@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -18,6 +18,10 @@ import { useStore } from "@/lib/store";
 import { inr } from "@/lib/data";
 import api from "@/lib/api";
 import PageHeader from "@/components/site/PageHeader";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+
+
+
 
 const field = "w-full rounded-sm border border-border bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-ember";
 const btn = "rounded-sm bg-gradient-ember px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-primary-foreground shadow-ember disabled:opacity-50";
@@ -235,6 +239,7 @@ function GallerySection() {
   const qc = useQueryClient();
   const [uploading, setUploading] = useState(false);
   const [caption, setCaption] = useState("");
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const { data: images } = useQuery({
     queryKey: ["admin-gallery"],
@@ -276,6 +281,21 @@ function GallerySection() {
     }
   };
 
+  const close = () => setActiveIndex(null);
+  const showPrev = () => setActiveIndex((i) => (i - 1 + images.length) % images.length);
+  const showNext = () => setActiveIndex((i) => (i + 1) % images.length);
+
+  useEffect(() => {
+    if (activeIndex === null) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") showPrev();
+      if (e.key === "ArrowRight") showNext();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [activeIndex, images]);
+
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
       <div className="space-y-4 rounded-lg border border-border bg-surface p-8">
@@ -296,9 +316,15 @@ function GallerySection() {
       <div className="rounded-lg border border-border bg-surface p-8">
         <h2 className="text-2xl leading-none">Gallery ({images?.length ?? 0})</h2>
         <div className="mt-6 grid max-h-150 grid-cols-2 gap-3 overflow-y-auto sm:grid-cols-3">
-          {images?.map((img) => (
+          {images?.map((img, i) => (
             <div key={img._id} className="group relative overflow-hidden rounded-sm border border-border">
-              <img src={img.url} alt={img.caption || "Gallery image"} className="h-28 w-full object-cover" />
+              <button
+                type="button"
+                onClick={() => setActiveIndex(i)}
+                className="block h-28 w-full cursor-zoom-in"
+              >
+                <img src={img.url} alt={img.caption || "Gallery image"} className="h-28 w-full object-cover" />
+              </button>
               <button
                 onClick={() => remove(img._id)}
                 className="absolute right-1.5 top-1.5 rounded-sm bg-background/80 p-1.5 text-muted-foreground opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100"
@@ -306,13 +332,58 @@ function GallerySection() {
                 <Trash2 size={14} />
               </button>
               {img.caption && (
-                <p className="truncate bg-background/80 px-2 py-1 text-[10px] text-muted-foreground">{img.caption}</p>
+                <p className="pointer-events-none truncate bg-background/80 px-2 py-1 text-[10px] text-muted-foreground">{img.caption}</p>
               )}
             </div>
           ))}
         </div>
         {images?.length === 0 && <p className="text-sm text-muted-foreground">No images yet.</p>}
       </div>
+
+      {activeIndex !== null && images && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6"
+          onClick={close}
+        >
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Close"
+            className="absolute right-5 top-5 rounded-full border border-white/30 p-2 text-white transition-colors hover:border-ember hover:text-ember"
+          >
+            <X size={20} />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); showPrev(); }}
+            aria-label="Previous image"
+            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full border border-white/30 p-2 text-white transition-colors hover:border-ember hover:text-ember sm:left-8"
+          >
+            <ChevronLeft size={22} />
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => { e.stopPropagation(); showNext(); }}
+            aria-label="Next image"
+            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full border border-white/30 p-2 text-white transition-colors hover:border-ember hover:text-ember sm:right-8"
+          >
+            <ChevronRight size={22} />
+          </button>
+
+          <div className="max-h-[85vh] max-w-4xl" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={images[activeIndex].url}
+              alt={images[activeIndex].caption || "Gallery image"}
+              className="max-h-[85vh] w-full rounded-lg object-contain"
+            />
+            {images[activeIndex].caption && (
+              <p className="mt-3 text-center text-sm text-white/70">{images[activeIndex].caption}</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
