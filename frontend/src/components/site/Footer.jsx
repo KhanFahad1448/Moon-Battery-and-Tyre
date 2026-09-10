@@ -125,6 +125,18 @@ export default function Footer() {
           <p>© {new Date().getFullYear()} Moon Battery and Tyre Pvt. Ltd. All rights reserved.</p>
           <p className="uppercase tracking-[0.2em]">UPI · Cards · Net Banking · No-cost EMI</p>
         </div>
+
+        <div className="mt-4 text-center text-[10px] text-muted-foreground">
+          
+          <a  href="https://www.flaticon.com/free-icons/ev"
+            title="ev icons"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-ember transition-colors duration-200"
+          >
+            Ev icons created by Nawaitu - Flaticon
+          </a>
+        </div>
       </div>
     </footer>
   );
