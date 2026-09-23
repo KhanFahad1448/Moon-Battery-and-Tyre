@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
+import EmiTag from "@/components/site/EmiTag";
 import {
   ArrowRight,
   BatteryCharging,
@@ -85,6 +86,8 @@ const textY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
   />
   <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent" />
   <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+
+  <EmiTag />
 
   <motion.div
      style={{ y: textY }}
