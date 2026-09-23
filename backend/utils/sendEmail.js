@@ -9,8 +9,6 @@ const FROM_ADDRESS = "Moon Battery and Tyre <onboarding@resend.dev>";
 
 const ADMIN_EMAIL = "fk9719650@gmail.com";
 
-
-
 const wrapper = (title, bodyHtml) => `
   <div style="font-family: -apple-system, Segoe UI, Roboto, sans-serif; max-width: 480px; margin: 0 auto; color: #1a1a1a;">
     <div style="background: linear-gradient(135deg, #ff6a1a, #ff8c42); padding: 24px; text-align: center; border-radius: 8px 8px 0 0;">
@@ -34,7 +32,6 @@ async function sendEmail({ to, subject, html }) {
   }
 }
 
-
 // Sending Order Confirmation to Customer
 export async function sendOrderConfirmationEmail(order) {
   const itemsHtml = order.items
@@ -56,7 +53,6 @@ export async function sendOrderConfirmationEmail(order) {
   await sendEmail({ to: order.email, subject: `Order confirmed — ${order.orderId}`, html });
 }
 
-
 // Sending Booking Confirmation to Customer
 export async function sendBookingConfirmationEmail(booking, customerEmail) {
   const html = wrapper(
@@ -72,9 +68,6 @@ export async function sendBookingConfirmationEmail(booking, customerEmail) {
 
   await sendEmail({ to: customerEmail, subject: "Your service slot request", html });
 }
-
-
-
 
 //Sending Booking Notification to Admin
 export async function sendAdminBookingNotification(booking) {
@@ -93,8 +86,6 @@ export async function sendAdminBookingNotification(booking) {
 
   await sendEmail({ to: ADMIN_EMAIL, subject: `New booking — ${booking.name}`, html });
 }
-
-
 
 // Sending Order Notification to Admin
 export async function sendAdminOrderNotification(order) {
@@ -118,8 +109,6 @@ export async function sendAdminOrderNotification(order) {
   await sendEmail({ to: ADMIN_EMAIL, subject: `New order — ${order.orderId}`, html });
 }
 
-
-
 // Sending Review Notification to Admin
 export async function sendAdminReviewNotification(testimonial) {
   const html = wrapper(
@@ -137,6 +126,3 @@ export async function sendAdminReviewNotification(testimonial) {
 
   await sendEmail({ to: ADMIN_EMAIL, subject: `New review from ${testimonial.name}`, html });
 }
-
-
-

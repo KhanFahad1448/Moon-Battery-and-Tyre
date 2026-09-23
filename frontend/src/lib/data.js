@@ -16,7 +16,7 @@ export const tyres = [
   {
     slug: "moon-grip-gt-205-55-r16",
     name: "MoonGrip GT",
-    brand: "Moon Performance",
+    brand: "APOLO",
     size: "205/55 R16",
     price: 6490,
     mrp: 7990,
@@ -33,7 +33,7 @@ export const tyres = [
   {
     slug: "eclipse-sport-225-45-r17",
     name: "Eclipse Sport",
-    brand: "Moon Performance",
+    brand: "VEDESTRIAN",
     size: "225/45 R17",
     price: 9250,
     mrp: 11400,
@@ -50,7 +50,7 @@ export const tyres = [
   {
     slug: "terra-crawler-at-265-65-r17",
     name: "Terra Crawler A/T",
-    brand: "Lunar Offroad",
+    brand: "MRF",
     size: "265/65 R17",
     price: 14800,
     mrp: 17200,
@@ -67,7 +67,7 @@ export const tyres = [
   {
     slug: "city-glide-155-80-r13",
     name: "City Glide",
-    brand: "Moon Essentials",
+    brand: "MITCHELIN",
     size: "155/80 R13",
     price: 3190,
     mrp: 3890,
@@ -84,7 +84,7 @@ export const tyres = [
   {
     slug: "monsoon-shield-195-65-r15",
     name: "Monsoon Shield",
-    brand: "Moon Performance",
+    brand: "APOLO",
     size: "195/65 R15",
     price: 5890,
     mrp: 7100,
@@ -101,7 +101,7 @@ export const tyres = [
   {
     slug: "voltura-ev-215-55-r17",
     name: "Voltura EV",
-    brand: "Moon Electric",
+    brand: "VEDESTRIAN",
     size: "215/55 R17",
     price: 11250,
     mrp: 13400,
@@ -118,7 +118,7 @@ export const tyres = [
   {
     slug: "haul-master-lt-215-75-r15",
     name: "Haul Master LT",
-    brand: "Lunar Commercial",
+    brand: "MRF",
     size: "215/75 R15",
     price: 8400,
     mrp: 9900,
@@ -135,7 +135,7 @@ export const tyres = [
   {
     slug: "moon-grip-gt-185-65-r15",
     name: "MoonGrip GT",
-    brand: "Moon Performance",
+    brand: "MITCHELIN",
     size: "185/65 R15",
     price: 5290,
     mrp: 6400,
@@ -152,7 +152,7 @@ export const tyres = [
   {
     slug: "apex-track-r-245-40-r18",
     name: "Apex Track R",
-    brand: "Moon Motorsport",
+    brand: "APOLO",
     size: "245/40 R18",
     price: 16900,
     mrp: 19800,
@@ -169,7 +169,7 @@ export const tyres = [
   {
     slug: "rover-hp-235-60-r18",
     name: "Rover HP",
-    brand: "Lunar Offroad",
+    brand: "VEDESTRIAN",
     size: "235/60 R18",
     price: 13100,
     mrp: 15200,
@@ -186,7 +186,7 @@ export const tyres = [
   {
     slug: "swift-eco-165-80-r14",
     name: "Swift Eco",
-    brand: "Moon Essentials",
+    brand: "MRF",
     size: "165/80 R14",
     price: 3890,
     mrp: 4600,
@@ -203,7 +203,7 @@ export const tyres = [
   {
     slug: "night-runner-205-60-r16",
     name: "Night Runner",
-    brand: "Moon Performance",
+    brand: "MITCHELIN",
     size: "205/60 R16",
     price: 7150,
     mrp: 8600,
@@ -223,7 +223,7 @@ export const batteries = [
   {
     slug: "moon-volt-x-65ah",
     name: "MoonVolt X",
-    brand: "Moon Power",
+    brand: "EXIDE",
     capacity: "65 Ah",
     cca: "620 A",
     price: 7490,
@@ -240,7 +240,7 @@ export const batteries = [
   {
     slug: "eclipse-agm-70ah",
     name: "Eclipse AGM",
-    brand: "Moon Power",
+    brand: "AMARON",
     capacity: "70 Ah",
     cca: "760 A",
     price: 13900,
@@ -257,7 +257,7 @@ export const batteries = [
   {
     slug: "lunar-lite-35ah",
     name: "Lunar Lite",
-    brand: "Moon Essentials",
+    brand: "LUMINOUS",
     capacity: "35 Ah",
     cca: "300 A",
     price: 3690,
@@ -274,7 +274,7 @@ export const batteries = [
   {
     slug: "titan-heavy-150ah",
     name: "Titan Heavy",
-    brand: "Lunar Commercial",
+    brand: "EXIDE",
     capacity: "150 Ah",
     cca: "1100 A",
     price: 18400,
@@ -291,7 +291,7 @@ export const batteries = [
   {
     slug: "moon-ride-9ah",
     name: "MoonRide",
-    brand: "Moon Power",
+    brand: "AMARON",
     capacity: "9 Ah",
     cca: "130 A",
     price: 1890,
@@ -308,7 +308,7 @@ export const batteries = [
   {
     slug: "solaris-inverter-220ah",
     name: "Solaris Inverter",
-    brand: "Moon Power",
+    brand: "LUMINOUS",
     capacity: "220 Ah",
     cca: "—",
     price: 22400,
@@ -325,7 +325,7 @@ export const batteries = [
   {
     slug: "voltura-lithium-50ah",
     name: "Voltura Lithium",
-    brand: "Moon Electric",
+    brand: "EXIDE",
     capacity: "50 Ah",
     cca: "700 A",
     price: 34900,
@@ -342,7 +342,7 @@ export const batteries = [
   {
     slug: "moon-volt-x-45ah",
     name: "MoonVolt X",
-    brand: "Moon Power",
+    brand: "AMARON",
     capacity: "45 Ah",
     cca: "440 A",
     price: 5490,
@@ -359,7 +359,7 @@ export const batteries = [
   {
     slug: "guardian-ups-42ah",
     name: "Guardian UPS",
-    brand: "Moon Power",
+    brand: "LUMINOUS",
     capacity: "42 Ah",
     cca: "—",
     price: 6900,
@@ -376,7 +376,7 @@ export const batteries = [
   {
     slug: "terra-marine-100ah",
     name: "Terra Marine",
-    brand: "Lunar Commercial",
+    brand: "EXIDE",
     capacity: "100 Ah",
     cca: "800 A",
     price: 15600,
@@ -499,15 +499,17 @@ export const services = [
   },
 ];
 
+// Fixed: removed duplicate "AMARON" entry, added a real brand from the
+// product catalogue ("Lunar Offroad") so the list still has 8 entries.
 export const brands = [
-  "Moon Performance",
+  "EXIDE",
+  "AMARON",
+  "APOLO",
+  "VEDESTRIAN",
+  "MRF",
+  "MITCHELIN",
+  "LUMINOUS",
   "Lunar Offroad",
-  "Moon Power",
-  "Moon Electric",
-  "Lunar Commercial",
-  "Moon Essentials",
-  "Moon Motorsport",
-  "Apex Rubber",
 ];
 
 export const testimonials = [
@@ -695,61 +697,53 @@ export const faqs = [
   },
 ];
 
+// Fixed: "Coming Soon" status is no longer baked into the `city` string
+// (which broke any equality match / filter / URL param on city name).
+// It now lives in its own `comingSoon` boolean. Also corrected the
+// spelling "Jhamshedpur" -> "Jamshedpur".
 export const locations = [
   {
-    city: "Mumbai",
-    branch: "Andheri East Flagship",
-    address: "Plot 42, MIDC Road No. 7, Andheri East, Mumbai 400093",
-    phone: "+91 98200 41001",
+    city: "Ranchi",
+    branch: "Bariatu, Ranchi Service Hub",
+    address: "Golden Chowk, Bariatu Road, Ranchi 834009",
+    phone: "+91 89695 53746",
     hours: "8:00 AM – 10:00 PM, all days",
-    bays: 8,
+    bays: 1,
+    comingSoon: false,
   },
   {
-    city: "Pune",
-    branch: "Kharadi Service Hub",
-    address: "Survey 61, Nagar Road, Kharadi, Pune 411014",
-    phone: "+91 98220 41002",
+    city: "Kolkata",
+    branch: "Newtown, Kolkata Service Hub",
+    address: "Plot 12, Action Area II, Newtown, Kolkata 700156",
+    phone: "+91 89695 53746",
     hours: "8:30 AM – 9:30 PM, all days",
     bays: 6,
+    comingSoon: true,
   },
   {
-    city: "Bengaluru",
-    branch: "Whitefield Centre",
-    address: "144, ITPL Main Road, Whitefield, Bengaluru 560066",
-    phone: "+91 98450 41003",
+    city: "Jamshedpur",
+    branch: "Karim City, Jamshedpur Service Hub",
+    address: "Plot 5, Karim City, Bistupur, Jamshedpur 831001",
+    phone: "+91 89695 53746",
     hours: "8:00 AM – 10:00 PM, all days",
     bays: 7,
+    comingSoon: true,
   },
   {
-    city: "Delhi NCR",
-    branch: "Gurugram Sector 44",
-    address: "Unit 9, Sector 44 Market, Gurugram 122003",
-    phone: "+91 98110 41004",
-    hours: "9:00 AM – 9:00 PM, all days",
+    city: "Dhanbad",
+    branch: "Dhanbad Service Hub",
+    address: "Plot 10, Dhanbad Industrial Area, Dhanbad 826001",
+    phone: "+91 89695 53746",
+    hours: "8:00 AM – 10:00 PM, all days",
     bays: 5,
-  },
-  {
-    city: "Hyderabad",
-    branch: "Gachibowli Express",
-    address: "Plot 3, Financial District Road, Gachibowli, Hyderabad 500032",
-    phone: "+91 90000 41005",
-    hours: "8:30 AM – 9:30 PM, all days",
-    bays: 4,
-  },
-  {
-    city: "Chennai",
-    branch: "OMR Perungudi",
-    address: "221, Old Mahabalipuram Road, Perungudi, Chennai 600096",
-    phone: "+91 90030 41006",
-    hours: "8:30 AM – 9:00 PM, all days",
-    bays: 5,
+    comingSoon: true,
   },
 ];
 
 export const stats = [
   { value: "1.2L+", label: "Wheels fitted" },
   { value: "27", label: "Years on the road" },
-  { value: "6", label: "Cities served" },
+  { value: "4", label: "Cities served" },
   { value: "4.9", label: "Average rating" },
 ];
 

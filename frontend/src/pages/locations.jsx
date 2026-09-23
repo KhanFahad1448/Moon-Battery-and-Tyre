@@ -8,7 +8,7 @@ function LocationsPage() {
   useMeta({
     title: "Our Locations — Moon Battery and Tyre",
     description:
-      "Find a Moon Battery and Tyre branch in Mumbai, Pune, Bengaluru, Gurugram, Hyderabad or Chennai. Addresses, hours and phone numbers.",
+      "Find a Moon Battery and Tyre branch in Ranchi, Kolkata and Jhamshedpur( Coming Soon ). Addresses, hours and phone numbers.",
   });
 
   const {
@@ -23,7 +23,7 @@ function LocationsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Six cities, 35 bays"
+        eyebrow="2 Cities, 3 bays"
         title="FIND YOUR BRANCH"
         subtitle="Every branch runs the same equipment, the same pricing and the same lifetime rotation programme."
       />

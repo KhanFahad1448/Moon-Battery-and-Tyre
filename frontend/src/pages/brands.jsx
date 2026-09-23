@@ -6,7 +6,7 @@ import { brands } from "@/lib/data";
 
 
 function BrandsPage() {
-  useMeta({ title: "Brands We Stock — Moon Battery and Tyre", description: "Moon Performance, Lunar Offroad, Moon Power, Moon Electric and more — the tyre and battery brands stocked at every branch." });
+  useMeta({ title: "Brands We Stock — Moon Battery and Tyre", description: "Moon Performance, EXIDE BATTERY, AMARON, Moon Electric and more — the tyre and battery brands stocked at every branch." });
 
   return (
     <>
