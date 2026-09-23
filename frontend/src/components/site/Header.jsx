@@ -70,8 +70,8 @@ export default function Header() {
       <div className="fixed inset-x-0 top-0 z-50">
         <div className="hidden items-center justify-between border-b border-border bg-background px-6 py-2 text-[11px] uppercase tracking-[0.2em] text-muted-foreground md:flex">
           <p>Free fitting · Free rotation for life · GST invoice on every order</p>
-          <a href="tel:+919820041001" className="flex items-center gap-2 text-ember">
-            <Phone size={12} /> +91 80855 09001
+          <a href="tel:+91 89695 53746" className="flex items-center gap-2 text-ember">
+            <Phone size={12} /> +91 89695 53746
           </a>
         </div>
 
